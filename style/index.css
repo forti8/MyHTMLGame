@@ -1,0 +1,47 @@
+canvas {
+    display: block;
+}
+body, html{
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+}
+
+.visualKeys {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+
+    .top {
+        display: flex;
+        height: 50px;
+        margin-bottom: 8px;
+        justify-content: center;
+    }
+
+    .bottom {
+        display: flex;
+        gap: 8px;
+        height: 50px;
+    }
+    .key {
+        display: flex;
+        font-family: sans-serif;
+        align-items: center;
+        justify-content: center;
+        border: 10px solid #bbb;
+        border-bottom: 10px solid #888;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #ccc;
+        width: 10px;
+    }
+
+    .ative {
+        background-color: #999;
+    }
+}
+

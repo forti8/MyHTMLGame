@@ -13,7 +13,6 @@ var canvas = document.getElementById("jogo");
 export var context = canvas.getContext("2d");
 export const width = window.innerWidth;
 export const height = window.innerHeight;
-
 export function inicialize (enemies) 
 {
     canvas.height = height;

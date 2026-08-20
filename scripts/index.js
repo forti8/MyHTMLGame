@@ -118,9 +118,21 @@ var especialTimer = 0;
 
 var especialAttackCount = 0;
 var isEspecial = false;
+var pauseGame = false;
+
+export function pause ()
+{
+    console.log("pause")
+    pauseGame = true;
+}
 
 function gameLoop (timestamp = 0)
 {
+    if (pauseGame)
+    {
+        return;
+    }
+
     findNearstEnemy()
     var deltaTime = timestamp - lastTime;
     lastTime = timestamp;

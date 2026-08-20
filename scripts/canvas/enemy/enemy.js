@@ -1,5 +1,5 @@
 import { draw } from "../canvas.js";
-import { enemies, player, Defaults, nearstEnemy, resetVariables } from "../../index.js";
+import { enemies, player, Defaults, nearstEnemy, resetVariables, pause} from "../../index.js";
 import { findNearstEnemy } from "../../functions.js";
 
 function reset ()
@@ -9,6 +9,7 @@ function reset ()
     player.setDamage(Defaults.player.damage);
     player.setCash(Defaults.player.cash);
     player.setVelSpeed(Defaults.player.speed);
+    pause();
 }
 
 class EnemyDefinition

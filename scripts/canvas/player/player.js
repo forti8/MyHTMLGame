@@ -2,6 +2,7 @@ import { Defaults, projetiles } from "../../index.js";
 import { context } from "../canvas.js";
 import { Rect } from "../formas/rect.js";
 import { Projetile } from "./projetile.js";
+import { openDieModal } from "../../modal/controller.js";
 
 export var levelUpXp = 1000;
 class PlayerDefinition 
@@ -20,14 +21,15 @@ class PlayerDefinition
         this.level = 1;
         this.regen = Defaults.player.passive.regen;
     }
-
+    
     setPosition (x, y) 
     {
         this.position = {x,y};
     }
-
+    
     die()
     {
+        openDieModal();
         levelUpXp = 1000
         this.points = 0;
         this.level = 1;

@@ -6,6 +6,7 @@ import {
     context
 } from "./canvas/canvas.js";
 
+import "./modal/controller.js";
 import { Enemy } from "./canvas/enemy/enemy.js";
 import { Rect } from "./canvas/formas/rect.js";
 import { createCommands } from "./canvas/player/setup.js";

@@ -4,8 +4,9 @@ export const enemiesSet = {
     "Zoombie": {
         name: "Zoombie",
         life: 30,
-        damage: 5,
+        damage: 20,
         speed: 1,
+        delay: 1000,
         rewards: {
             cash: 50,
             point: 10,
@@ -21,8 +22,9 @@ export const enemiesSet = {
     "Boom": {
         name: "Boom",
         life: 40,
-        damage: 100,
+        damage: 50,
         speed: 0.25,
+        delay: 1500,
         rewards: {
             cash: 200,
             point: 50,
@@ -38,7 +40,8 @@ export const enemiesSet = {
     "Rich Monster": {
         name: "Rich Monster",
         life: 1000,
-        damage: 1,
+        damage: 10,
+        delay: 1200,
         speed: 0.75,
         rewards: {
             cash: 2000,

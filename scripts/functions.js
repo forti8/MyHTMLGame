@@ -63,6 +63,7 @@ export function genEnemy ()
             .setCashReward(mobData.rewards.cash)
             .setPointReward(mobData.rewards.point)
             .setXpReward(mobData.rewards.xp)
+            .setDelay(mobData.delay)
             .create();
     
         var enemyRect = new Rect()

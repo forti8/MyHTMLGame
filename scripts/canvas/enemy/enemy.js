@@ -12,6 +12,7 @@ function reset ()
     pause();
 }
 
+var lastTime = 0;
 class EnemyDefinition
 {
     constructor (
@@ -25,7 +26,8 @@ class EnemyDefinition
         isNearst,
         pointReward,
         cashReward,
-        xpReward
+        xpReward,
+        delay
     )
 
     {
@@ -40,6 +42,10 @@ class EnemyDefinition
         this.pointReward = pointReward;
         this.cashReward = cashReward
         this.xpReward = xpReward;
+        this.delay = delay;
+
+        this.attackTimer = 0;
+        this.lastTime = 0;
     }
 
     toogleNearst ()
@@ -66,6 +72,30 @@ class EnemyDefinition
         p.addPoints(this.pointReward);
         p.setCash(p.cash + this.cashReward);
         p.setXp(p.xp + this.xpReward);
+    }
+
+    cooldownUpdate(timestamp = 0)
+    {
+        if (this.lastTime === 0) {
+            this.lastTime = timestamp;
+            return;
+        }
+
+        const deltaTime = timestamp - this.lastTime;
+
+        this.lastTime = timestamp;
+        this.attackTimer += deltaTime;
+    }
+
+
+    canAttack ()
+    {
+        if (this.attackTimer >= this.delay)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     isColliding(playerPosition, enemyPosition) 
@@ -96,10 +126,15 @@ class EnemyDefinition
         this.life = life;
     }    
 
-    attack(playerPosition, p)
+   attack(playerPosition, p)
     {
-        if (this.isColliding(playerPosition, this.position)) {
-            var playerLife = p.life;
+        if (
+            this.isColliding(playerPosition, this.position) &&
+            this.canAttack()
+        ) {
+            this.attackTimer = 0;
+
+            const playerLife = p.life;
 
             if (playerLife - this.damage <= 0) {
                 reset();
@@ -111,8 +146,8 @@ class EnemyDefinition
 
             p.setLife(playerLife - this.damage);
         }
-
     }
+
 
     move (playerPosition)
     {
@@ -151,6 +186,7 @@ export class Enemy
     #pointReward = 1;
     #cashReward = 10;
     #xpReward = 100;
+    #delay = 1000;
 
     setDamage (damage) {
         this.#damage = damage;
@@ -217,6 +253,11 @@ export class Enemy
         return this;
     }
     
+    setDelay (delay)
+    {
+        this.#delay = delay;
+        return this;
+    }
 
     create ()
     {
@@ -231,7 +272,8 @@ export class Enemy
             this.#isNearst,
             this.#pointReward,
             this.#cashReward,
-            this.#xpReward
+            this.#xpReward,
+            this.#delay
         )
     }
 }

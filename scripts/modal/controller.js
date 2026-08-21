@@ -1,3 +1,5 @@
+import { startGame } from "../index.js";
+
 export function openDieModal ()
 {
     const dieModal = document.getElementById("dieModal")
@@ -6,8 +8,10 @@ export function openDieModal ()
 
 function closeDieModal ()
 {
-    const dieModal = document.getElementById("dieModal")
+    const dieModal = document.getElementById("dieModal");
     dieModal.classList.add("hidden");
+
+    startGame();
 }
 
 const rematchButton = document.getElementById("rematch");

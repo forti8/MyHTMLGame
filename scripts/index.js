@@ -16,6 +16,7 @@ export var player = null;
 export var enemies = [];
 export var projetiles = [];
 export var nearstEnemy = null;
+var pauseGame = false;
 
 export const Defaults = {
     setNearst: function (n) {
@@ -73,15 +74,15 @@ export function resetVariables()
     playerAttackTimer = 0;
     especialTimer = 0;
     especialAttackCount = 0;
-    isEspecial = false;
 }
 
-function update ()
+function update (timestamp = 0)
 {
     for (const e of enemies)
     {
         e.move(player.position);
-        e.attack(player.position, player)
+        e.cooldownUpdate(timestamp);
+        e.attack(player.position, player);
     }
 
     for (const p of projetiles)
@@ -99,9 +100,19 @@ function update ()
     }
 }
 
-function startGame ()
+
+var lastTime = 0;
+var spawnEnemyTimer = 0;
+var playerAttackTimer = 0;
+var regenTimer = 0;
+var especialTimer = 0;
+var especialAttackCount = 0;
+
+export function startGame ()
 {
+    pauseGame = false;
     player = inicialize(enemies);
+    resetVariables();
     createCommands();
     gameLoop();
 }
@@ -109,16 +120,6 @@ function startGame ()
 const spawnEnemyCooldown = 5000;
 const regenCooldown = 1000;
 var playerAttackCooldown = Defaults.player.attack.defaultCooldown;
-
-var lastTime = 0;
-var spawnEnemyTimer = 0;
-var playerAttackTimer = 0;
-var regenTimer = 0;
-var especialTimer = 0;
-
-var especialAttackCount = 0;
-var isEspecial = false;
-var pauseGame = false;
 
 export function pause ()
 {
@@ -128,10 +129,7 @@ export function pause ()
 
 function gameLoop (timestamp = 0)
 {
-    if (pauseGame)
-    {
-        return;
-    }
+    if (pauseGame) return;
 
     findNearstEnemy()
     var deltaTime = timestamp - lastTime;
@@ -181,7 +179,7 @@ function gameLoop (timestamp = 0)
         }
     }
 
-    update();
+    update(timestamp);
     draw(player, enemies);
     requestAnimationFrame(gameLoop);
 }
